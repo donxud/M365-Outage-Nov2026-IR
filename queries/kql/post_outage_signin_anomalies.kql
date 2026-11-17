@@ -1,0 +1,30 @@
+// Post-outage sign-in anomalies (Microsoft Sentinel, Entra ID SigninLogs)
+// Credential phishing during an outage shows up afterward as successful sign-ins
+// from new countries or ASNs, often right after a burst of failures.
+let outage_start = datetime(2026-11-12T16:00:00Z);
+let review_end   = datetime(2026-11-20T00:00:00Z);
+let history = 30d;
+let known =
+    SigninLogs
+    | where TimeGenerated between ((outage_start - history) .. outage_start)
+    | where ResultType == "0"
+    | summarize KnownCountries = make_set(tostring(LocationDetails.countryOrRegion), 50),
+                KnownASNs = make_set(AutonomousSystemNumber, 50)
+        by UserPrincipalName;
+SigninLogs
+| where TimeGenerated between (outage_start .. review_end)
+| extend Country = tostring(LocationDetails.countryOrRegion)
+| summarize Failures = countif(ResultType != "0"),
+            Successes = countif(ResultType == "0"),
+            SuccessCountries = make_set_if(Country, ResultType == "0", 20),
+            SuccessASNs = make_set_if(AutonomousSystemNumber, ResultType == "0", 20),
+            Apps = make_set(AppDisplayName, 10),
+            FirstSeen = min(TimeGenerated), LastSeen = max(TimeGenerated)
+    by UserPrincipalName
+| where Successes > 0
+| join kind=leftouter known on UserPrincipalName
+| extend NewCountries = set_difference(SuccessCountries, KnownCountries),
+         NewASNs = set_difference(SuccessASNs, KnownASNs)
+| where array_length(NewCountries) > 0 or array_length(NewASNs) > 0
+| project UserPrincipalName, Failures, Successes, NewCountries, NewASNs, Apps, FirstSeen, LastSeen
+| order by array_length(NewCountries) desc, Failures desc

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" font-family="Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Before and after: removing the single point of failure">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#57606a"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="520" fill="#ffffff"/>
+  <text x="500" y="36" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">From one failure domain to degraded-but-not-blind</text>
+
+  <!-- BEFORE -->
+  <text x="240" y="78" text-anchor="middle" font-size="15" font-weight="700" fill="#cf222e">Before: everything behind one provider</text>
+  <rect x="30" y="94" width="420" height="300" rx="14" fill="#ffebe9" stroke="#cf222e" stroke-width="2"/>
+  <text x="240" y="122" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2328">Microsoft cloud</text>
+  <g font-size="13" fill="#1f2328" text-anchor="middle">
+    <rect x="55" y="140" width="175" height="60" rx="8" fill="#ffffff" stroke="#cf222e"/><text x="142" y="175">Email</text>
+    <rect x="250" y="140" width="175" height="60" rx="8" fill="#ffffff" stroke="#cf222e"/><text x="337" y="175">Chat and meetings</text>
+    <rect x="55" y="215" width="175" height="60" rx="8" fill="#ffffff" stroke="#cf222e"/><text x="142" y="250">Identity</text>
+    <rect x="250" y="215" width="175" height="60" rx="8" fill="#ffffff" stroke="#cf222e"/><text x="337" y="250">XDR console</text>
+    <rect x="55" y="290" width="175" height="60" rx="8" fill="#ffffff" stroke="#cf222e"/><text x="142" y="325">SIEM</text>
+    <rect x="250" y="290" width="175" height="60" rx="8" fill="#ffffff" stroke="#cf222e"/><text x="337" y="325">IR channel</text>
+  </g>
+  <text x="240" y="372" text-anchor="middle" font-size="12" fill="#57606a">all share one failure domain</text>
+  <text x="240" y="430" text-anchor="middle" font-size="14" font-weight="700" fill="#cf222e">One outage = no mail, no IR channel,</text>
+  <text x="240" y="450" text-anchor="middle" font-size="14" font-weight="700" fill="#cf222e">no security console</text>
+
+  <!-- arrow -->
+  <path d="M462 244H532" stroke="#57606a" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <!-- AFTER -->
+  <text x="760" y="78" text-anchor="middle" font-size="15" font-weight="700" fill="#1a7f37">After: independent paths for critical functions</text>
+  <rect x="545" y="94" width="200" height="300" rx="14" fill="#f6f8fa" stroke="#57606a" stroke-width="1.5"/>
+  <text x="645" y="122" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2328">Microsoft cloud</text>
+  <g font-size="12.5" fill="#1f2328" text-anchor="middle">
+    <rect x="565" y="138" width="160" height="40" rx="8" fill="#ffffff" stroke="#57606a"/><text x="645" y="163">Email, chat</text>
+    <rect x="565" y="188" width="160" height="40" rx="8" fill="#ffffff" stroke="#57606a"/><text x="645" y="213">Identity</text>
+    <rect x="565" y="238" width="160" height="40" rx="8" fill="#ffffff" stroke="#57606a"/><text x="645" y="263">XDR console</text>
+    <rect x="565" y="288" width="160" height="40" rx="8" fill="#ffffff" stroke="#57606a"/><text x="645" y="313">SIEM</text>
+  </g>
+
+  <rect x="760" y="94" width="215" height="300" rx="14" fill="#dafbe1" stroke="#1a7f37" stroke-width="2"/>
+  <text x="867" y="122" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2328">Independent</text>
+  <g font-size="12.5" fill="#1f2328" text-anchor="middle">
+    <rect x="775" y="138" width="185" height="40" rx="8" fill="#ffffff" stroke="#1a7f37"/><text x="867" y="163">Out-of-band IR channel</text>
+    <rect x="775" y="188" width="185" height="40" rx="8" fill="#ffffff" stroke="#1a7f37"/><text x="867" y="213">Break-glass + hardware keys</text>
+    <rect x="775" y="238" width="185" height="40" rx="8" fill="#ffffff" stroke="#1a7f37"/><text x="867" y="263">NGFW, DNS, NetFlow logs</text>
+    <rect x="775" y="288" width="185" height="40" rx="8" fill="#ffffff" stroke="#1a7f37"/><text x="867" y="313">Secondary log store</text>
+    <rect x="775" y="338" width="185" height="40" rx="8" fill="#ffffff" stroke="#1a7f37"/><text x="867" y="363">Immutable backups</text>
+  </g>
+  <text x="760" y="430" text-anchor="middle" font-size="14" font-weight="700" fill="#1a7f37">One outage = degraded, not blind:</text>
+  <text x="760" y="450" text-anchor="middle" font-size="14" font-weight="700" fill="#1a7f37">the team can still talk, see and respond</text>
+  <text x="500" y="495" text-anchor="middle" font-size="12" fill="#57606a">Goal: no critical security function depends on a single provider, account, console or channel.</text>
+</svg>

@@ -1,0 +1,30 @@
+// Outage-themed phishing lures (Microsoft Defender XDR advanced hunting)
+// Context: during the 12-13 Nov 2026 Microsoft 365 outage, Microsoft Threat
+// Intelligence reported phishing that referenced the real incident EX1550543.
+// Finds external emails whose subject mentions outage terms or incident IDs,
+// then joins URL clicks. Tune the keyword list and window for your tenant.
+let lookback = 14d;
+let incident_ids = dynamic(["EX1550543", "MO1550821"]);
+let lure_terms = dynamic(["outage", "service disruption", "service restoration",
+    "mailbox access", "re-validate", "revalidate", "verify your account",
+    "mailbox suspended", "incident", "service health"]);
+EmailEvents
+| where Timestamp > ago(lookback)
+| where EmailDirection == "Inbound"
+| where Subject has_any (incident_ids) or Subject has_any (lure_terms)
+// Real Microsoft service notices come from Microsoft; flag everything else
+| where not(SenderFromDomain endswith "microsoft.com")
+| project Timestamp, NetworkMessageId, RecipientEmailAddress, SenderFromAddress,
+          SenderFromDomain, Subject, DeliveryAction, ThreatTypes
+| join kind=leftouter (
+    UrlClickEvents
+    | where Timestamp > ago(lookback)
+    | project NetworkMessageId, ClickTime = Timestamp, Url, ActionType, IsClickedThrough
+  ) on NetworkMessageId
+| summarize Recipients = dcount(RecipientEmailAddress),
+            Clicks = countif(isnotempty(Url)),
+            ClickedThrough = countif(IsClickedThrough == true),
+            FirstSeen = min(Timestamp), LastSeen = max(Timestamp),
+            SampleSubjects = make_set(Subject, 5)
+    by SenderFromDomain, SenderFromAddress
+| order by ClickedThrough desc, Recipients desc

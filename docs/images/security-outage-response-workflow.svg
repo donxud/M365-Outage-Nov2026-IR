@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 960" font-family="Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Workflow: what to do when Microsoft security services go down">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#57606a"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="960" fill="#ffffff"/>
+  <text x="500" y="36" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">When Microsoft security services go down: keep watching through independent layers</text>
+
+  <!-- connectors -->
+  <g stroke="#57606a" stroke-width="1.5" fill="none">
+    <path d="M500 130V158" marker-end="url(#arrow)"/>
+    <path d="M500 220V248" marker-end="url(#arrow)"/>
+    <path d="M500 330V370M125 370H875M125 370V388M375 370V388M625 370V388M875 370V388" />
+    <path d="M125 370V388" marker-end="url(#arrow)"/>
+    <path d="M375 370V388" marker-end="url(#arrow)"/>
+    <path d="M625 370V388" marker-end="url(#arrow)"/>
+    <path d="M875 370V388" marker-end="url(#arrow)"/>
+    <path d="M125 530V560M375 530V560M625 530V560M875 530V560M125 560H875"/>
+    <path d="M500 560V588" marker-end="url(#arrow)"/>
+    <path d="M500 650V678" marker-end="url(#arrow)"/>
+    <path d="M500 740V768" marker-end="url(#arrow)"/>
+    <path d="M500 830V858" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- 1 trigger -->
+  <rect x="220" y="70" width="560" height="60" rx="10" fill="#ffebe9" stroke="#cf222e" stroke-width="1.5"/>
+  <text x="500" y="95" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">Microsoft security service degraded</text>
+  <text x="500" y="116" text-anchor="middle" font-size="12" fill="#57606a">Defender XDR · Sentinel · Entra ID · Defender for Office 365</text>
+
+  <!-- 2 confirm -->
+  <rect x="220" y="160" width="560" height="60" rx="10" fill="#f6f8fa" stroke="#57606a" stroke-width="1.2"/>
+  <text x="500" y="185" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">Confirm, then move the IR team out of band</text>
+  <text x="500" y="206" text-anchor="middle" font-size="12" fill="#57606a">Service Health / Graph API · freeze security changes · open an incident</text>
+
+  <!-- decision -->
+  <polygon points="500,250 650,290 500,330 350,290" fill="#ffffff" stroke="#57606a" stroke-width="1.2"/>
+  <text x="500" y="295" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2328">Which control is blind?</text>
+
+  <!-- 4 branches -->
+  <g font-size="12" fill="#1f2328">
+    <rect x="15" y="390" width="220" height="140" rx="10" fill="#fff8c5" stroke="#9a6700" stroke-width="1.2"/>
+    <text x="125" y="414" text-anchor="middle" font-size="13.5" font-weight="700">Identity (Entra ID)</text>
+    <text x="30" y="440">• Use break-glass accounts</text>
+    <text x="30" y="460">• Freeze Conditional Access</text>
+    <text x="30" y="480">• Watch VPN, firewall and</text>
+    <text x="40" y="498">on-prem auth logs</text>
+
+    <rect x="265" y="390" width="220" height="140" rx="10" fill="#fff8c5" stroke="#9a6700" stroke-width="1.2"/>
+    <text x="375" y="414" text-anchor="middle" font-size="13.5" font-weight="700">Endpoint (Defender XDR)</text>
+    <text x="280" y="440">• Agents still enforce locally</text>
+    <text x="280" y="460">• Pull logs from hosts</text>
+    <text x="280" y="480">• Hunt C2 in firewall and</text>
+    <text x="290" y="498">DNS logs</text>
+
+    <rect x="515" y="390" width="220" height="140" rx="10" fill="#fff8c5" stroke="#9a6700" stroke-width="1.2"/>
+    <text x="625" y="414" text-anchor="middle" font-size="13.5" font-weight="700">SIEM (Sentinel)</text>
+    <text x="530" y="440">• Query sources directly</text>
+    <text x="530" y="460">• Buffer logs at forwarders</text>
+    <text x="530" y="480">• Search the secondary log</text>
+    <text x="540" y="498">store (e.g. Elastic)</text>
+
+    <rect x="765" y="390" width="220" height="140" rx="10" fill="#fff8c5" stroke="#9a6700" stroke-width="1.2"/>
+    <text x="875" y="414" text-anchor="middle" font-size="13.5" font-weight="700">Email (Defender for O365)</text>
+    <text x="780" y="440">• Warn users about lures</text>
+    <text x="780" y="460">• Tighten gateway/MX rules</text>
+    <text x="780" y="480">• Hold risky attachments</text>
+    <text x="780" y="500">• Watch help-desk requests</text>
+  </g>
+
+  <!-- tail steps -->
+  <rect x="220" y="590" width="560" height="60" rx="10" fill="#f6f8fa" stroke="#57606a" stroke-width="1.2"/>
+  <text x="500" y="615" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">Raise monitoring at independent layers</text>
+  <text x="500" y="636" text-anchor="middle" font-size="12" fill="#57606a">NGFW · DNS filtering · NetFlow / NDR · web proxy · host logs</text>
+
+  <rect x="220" y="680" width="560" height="60" rx="10" fill="#f6f8fa" stroke="#57606a" stroke-width="1.2"/>
+  <text x="500" y="705" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">Guard against exploitation of the outage</text>
+  <text x="500" y="726" text-anchor="middle" font-size="12" fill="#57606a">Outage-themed phishing · fake support calls · MFA-reset social engineering</text>
+
+  <rect x="220" y="770" width="560" height="60" rx="10" fill="#f6f8fa" stroke="#57606a" stroke-width="1.2"/>
+  <text x="500" y="795" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">Recover and backfill</text>
+  <text x="500" y="816" text-anchor="middle" font-size="12" fill="#57606a">Confirm service · backfill logs · rerun detections over the blind window</text>
+
+  <rect x="220" y="860" width="560" height="60" rx="10" fill="#ddf4ff" stroke="#0969da" stroke-width="2"/>
+  <text x="500" y="885" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">Review and remove single points of failure</text>
+  <text x="500" y="906" text-anchor="middle" font-size="12" fill="#57606a">Record blind windows · add independent controls · rehearse the playbook</text>
+</svg>

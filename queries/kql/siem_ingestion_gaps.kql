@@ -1,0 +1,27 @@
+// SIEM ingestion gaps during a provider outage (Microsoft Sentinel / Log Analytics)
+// Compares hourly billable ingestion per table against that table's own baseline,
+// and flags hours that dropped sharply. Run it for the outage window, then re-run
+// critical detections over any gap once delayed data arrives.
+let window_start = datetime(2026-11-12T12:00:00Z);
+let window_end   = datetime(2026-11-14T12:00:00Z);
+let baseline_days = 14d;
+let drop_ratio = 0.3;   // flag hours below 30% of the table's median hourly volume
+let baseline =
+    Usage
+    | where TimeGenerated between ((window_start - baseline_days) .. window_start)
+    | where IsBillable == true
+    | summarize HourlyMB = sum(Quantity) by DataType, bin(TimeGenerated, 1h)
+    | summarize MedianMB = percentile(HourlyMB, 50) by DataType;
+Usage
+| where TimeGenerated between (window_start .. window_end)
+| where IsBillable == true
+| summarize HourlyMB = sum(Quantity) by DataType, Hour = bin(TimeGenerated, 1h)
+| join kind=inner baseline on DataType
+| where MedianMB > 0 and HourlyMB < MedianMB * drop_ratio
+| project Hour, DataType, HourlyMB = round(HourlyMB, 2), MedianMB = round(MedianMB, 2),
+          PctOfNormal = round(100.0 * HourlyMB / MedianMB, 1)
+| order by DataType asc, Hour asc
+// Note: Usage records only hours with data. A table that went fully silent may
+// show no rows for those hours; check silent tables with:
+//   Usage | where TimeGenerated between (window_start .. window_end)
+//   | summarize LastSeen = max(TimeGenerated) by DataType

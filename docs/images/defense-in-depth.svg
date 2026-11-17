@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" font-family="Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Defense in depth: every layer has a control that does not depend on Microsoft">
+  <rect width="1000" height="640" fill="#ffffff"/>
+  <text x="500" y="36" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">Defense in depth: every layer keeps a control that does not depend on Microsoft</text>
+  <text x="500" y="60" text-anchor="middle" font-size="13" fill="#57606a">If the Microsoft column goes dark, the right-hand column still protects and still sees</text>
+
+  <!-- header -->
+  <g font-size="13" font-weight="700" fill="#1f2328">
+    <text x="30" y="96">Layer</text>
+    <text x="240" y="96">Microsoft control</text>
+    <text x="580" y="96">Independent control (works during a Microsoft outage)</text>
+  </g>
+  <line x1="20" y1="106" x2="980" y2="106" stroke="#57606a" stroke-width="1.2"/>
+
+  <!-- rows: y start 112, height 60 -->
+  <g font-size="12.5" fill="#1f2328">
+    <!-- 1 people -->
+    <rect x="20" y="112" width="200" height="56" rx="8" fill="#0969da" fill-opacity="0.95"/>
+    <text x="120" y="145" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="13.5">People and process</text>
+    <rect x="230" y="112" width="330" height="56" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <text x="245" y="145">Teams and Outlook for IR communication</text>
+    <rect x="570" y="112" width="410" height="56" rx="8" fill="#dafbe1" stroke="#1a7f37"/>
+    <text x="585" y="145">Out-of-band channel, phone tree, offline runbooks</text>
+
+    <!-- 2 identity -->
+    <rect x="20" y="176" width="200" height="56" rx="8" fill="#0969da" fill-opacity="0.85"/>
+    <text x="120" y="209" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="13.5">Identity</text>
+    <rect x="230" y="176" width="330" height="56" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <text x="245" y="209">Entra ID, Conditional Access, MFA</text>
+    <rect x="570" y="176" width="410" height="56" rx="8" fill="#dafbe1" stroke="#1a7f37"/>
+    <text x="585" y="201">Break-glass accounts with hardware keys;</text>
+    <text x="585" y="219">VPN and firewall authentication logs</text>
+
+    <!-- 3 perimeter -->
+    <rect x="20" y="240" width="200" height="56" rx="8" fill="#0969da" fill-opacity="0.75"/>
+    <text x="120" y="273" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="13.5">Perimeter</text>
+    <rect x="230" y="240" width="330" height="56" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <text x="245" y="273">Cloud-managed network policy</text>
+    <rect x="570" y="240" width="410" height="56" rx="8" fill="#dafbe1" stroke="#1a7f37"/>
+    <text x="585" y="265">Next-generation firewall (e.g. Palo Alto) with IPS,</text>
+    <text x="585" y="283">URL and DNS filtering, logging locally</text>
+
+    <!-- 4 network visibility -->
+    <rect x="20" y="304" width="200" height="56" rx="8" fill="#0969da" fill-opacity="0.65"/>
+    <text x="120" y="337" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="13.5">Network visibility</text>
+    <rect x="230" y="304" width="330" height="56" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <text x="245" y="337">Defender for Endpoint network events</text>
+    <rect x="570" y="304" width="410" height="56" rx="8" fill="#dafbe1" stroke="#1a7f37"/>
+    <text x="585" y="337">NetFlow / NDR (e.g. ntopng) and DNS query logs</text>
+
+    <!-- 5 endpoint -->
+    <rect x="20" y="368" width="200" height="56" rx="8" fill="#0969da" fill-opacity="0.55"/>
+    <text x="120" y="401" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="13.5">Endpoint</text>
+    <rect x="230" y="368" width="330" height="56" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <text x="245" y="401">Defender for Endpoint and the XDR console</text>
+    <rect x="570" y="368" width="410" height="56" rx="8" fill="#dafbe1" stroke="#1a7f37"/>
+    <text x="585" y="393">Agents keep enforcing offline; host logs;</text>
+    <text x="585" y="411">application allow-listing</text>
+
+    <!-- 6 email -->
+    <rect x="20" y="432" width="200" height="56" rx="8" fill="#0969da" fill-opacity="0.45"/>
+    <text x="120" y="465" text-anchor="middle" fill="#ffffff" font-weight="700" font-size="13.5">Email</text>
+    <rect x="230" y="432" width="330" height="56" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <text x="245" y="465">Defender for Office 365</text>
+    <rect x="570" y="432" width="410" height="56" rx="8" fill="#dafbe1" stroke="#1a7f37"/>
+    <text x="585" y="457">DMARC/SPF/DKIM enforcement, gateway rules,</text>
+    <text x="585" y="475">trained users who report phishing</text>
+
+    <!-- 7 detection -->
+    <rect x="20" y="496" width="200" height="56" rx="8" fill="#0969da" fill-opacity="0.35"/>
+    <text x="120" y="529" text-anchor="middle" fill="#1f2328" font-weight="700" font-size="13.5">Detection and logging</text>
+    <rect x="230" y="496" width="330" height="56" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <text x="245" y="529">Microsoft Sentinel</text>
+    <rect x="570" y="496" width="410" height="56" rx="8" fill="#dafbe1" stroke="#1a7f37"/>
+    <text x="585" y="521">Secondary log store (e.g. Elastic); forwarders</text>
+    <text x="585" y="539">that buffer and replay when Sentinel returns</text>
+
+    <!-- 8 data -->
+    <rect x="20" y="560" width="200" height="56" rx="8" fill="#0969da" fill-opacity="0.25"/>
+    <text x="120" y="593" text-anchor="middle" fill="#1f2328" font-weight="700" font-size="13.5">Data and recovery</text>
+    <rect x="230" y="560" width="330" height="56" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <text x="245" y="593">OneDrive / SharePoint versioning</text>
+    <rect x="570" y="560" width="410" height="56" rx="8" fill="#dafbe1" stroke="#1a7f37"/>
+    <text x="585" y="593">Immutable, offline backups with tested restores</text>
+  </g>
+</svg>
