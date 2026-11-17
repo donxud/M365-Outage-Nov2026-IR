@@ -1,0 +1,10 @@
+# Never commit real tenant data, logs or exports to this public repo.
+*.real.json
+private/
+exports/
+*.log
+.env
+
+__pycache__/
+*.pyc
+.DS_Store
